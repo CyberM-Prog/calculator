@@ -40,8 +40,6 @@ numbers.forEach(function(number) {
 
 const operators = document.querySelectorAll(".operator")
 
-let previousNumber
-
 let operatorChosen
 
 let a
@@ -81,3 +79,17 @@ function getResult() {
 }
 
 equal.addEventListener("click", getResult)
+
+const clear = document.querySelector("#clear")
+
+function clearCalculator() {
+    a = ""
+    b = ""
+    operatorChosen = ""
+    display.textContent = ""
+    displayValue = ""
+
+}
+
+clear.addEventListener("click", clearCalculator)
+
