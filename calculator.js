@@ -20,3 +20,24 @@ function operate(operator, a, b) {
     if (operator === "*") return multiply(a, b)
     if (operator === "/") return divide(a, b)
 }
+
+const buttons = document.querySelectorAll("button")
+
+const display = document.querySelector("#display")
+
+let displayValue
+
+
+
+function modifyDisplay() {
+    display.textContent += this.textContent
+
+    displayValue = display.textContent
+}
+
+buttons.forEach(function(button) {
+    
+    button.addEventListener("click", modifyDisplay)
+})
+
+
