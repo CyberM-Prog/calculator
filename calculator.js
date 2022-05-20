@@ -1,17 +1,17 @@
 function add(a, b) {
-    return a + b
+    return +a + +b
 }
 
 function subtract(a, b) {
-    return a - b
+    return +a - +b
 }
 
 function multiply(a, b) {
-    return a * b
+    return +a * +b
 }
 
 function divide(a , b) {
-    return a / b
+    return +a / +b
 }
 
 function operate(operator, a, b) {
@@ -42,16 +42,42 @@ const operators = document.querySelectorAll(".operator")
 
 let previousNumber
 
+let operatorChosen
+
+let a
+
 function showOperators() {
 
-    previousNumber = displayValue
+    a = displayValue
     
     display.textContent += this.textContent
 
     displayValue = display.textContent
+
+    operatorChosen = this.textContent
+    console.log(operatorChosen)
 }
 
 operators.forEach(function(operator) {
     
     operator.addEventListener("click", showOperators)
 })
+
+const equal = document.querySelector("#equal")
+
+let b
+
+function getResult() {
+
+    b = displayValue.charAt(displayValue.length - 1)
+    console.log(b)
+    console.log(operatorChosen)
+
+    if (operatorChosen === "+") display.textContent = add(a, b)
+    if (operatorChosen === "-") display.textContent = subtract(a, b)
+    if (operatorChosen === "*") display.textContent = multiply(a, b)
+    if (operatorChosen === "/") display.textContent = divide(a, b)
+
+}
+
+equal.addEventListener("click", getResult)
