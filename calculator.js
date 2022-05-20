@@ -54,7 +54,6 @@ function showOperators() {
     display.textContent += this.textContent
 
     operatorChosen = this.textContent
-    console.log(operatorChosen)
 }
 
 operators.forEach(function(operator) {
@@ -69,14 +68,11 @@ let b
 function getResult() {
 
     b = display.textContent.charAt(display.textContent.length - 1)
-    console.log(b)
-    console.log(operatorChosen)
 
-    if (operatorChosen === "+") display.textContent = add(a, b)
-    if (operatorChosen === "-") display.textContent = subtract(a, b)
-    if (operatorChosen === "*") display.textContent = multiply(a, b)
-    if (operatorChosen === "/") display.textContent = divide(a, b)
-
+    if (operatorChosen === "+") display.textContent = Math.round((add(a, b) + Number.EPSILON) * 10000000) / 10000000
+    if (operatorChosen === "-") display.textContent = Math.round((subtract(a, b) + Number.EPSILON) * 10000000) / 10000000
+    if (operatorChosen === "*") display.textContent = Math.round((multiply(a, b) + Number.EPSILON) * 10000000) / 10000000
+    if (operatorChosen === "/") display.textContent = Math.round((divide(a, b) + Number.EPSILON) * 10000000) / 10000000
 }
 
 equal.addEventListener("click", getResult)
