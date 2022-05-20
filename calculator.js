@@ -21,13 +21,11 @@ function operate(operator, a, b) {
     if (operator === "/") return divide(a, b)
 }
 
-const buttons = document.querySelectorAll("button")
+const numbers = document.querySelectorAll(".number")
 
 const display = document.querySelector("#display")
 
 let displayValue
-
-
 
 function modifyDisplay() {
     display.textContent += this.textContent
@@ -35,9 +33,25 @@ function modifyDisplay() {
     displayValue = display.textContent
 }
 
-buttons.forEach(function(button) {
+numbers.forEach(function(number) {
     
-    button.addEventListener("click", modifyDisplay)
+    number.addEventListener("click", modifyDisplay)
 })
 
+const operators = document.querySelectorAll(".operator")
 
+let previousNumber
+
+function showOperators() {
+
+    previousNumber = displayValue
+    
+    display.textContent += this.textContent
+
+    displayValue = display.textContent
+}
+
+operators.forEach(function(operator) {
+    
+    operator.addEventListener("click", showOperators)
+})
