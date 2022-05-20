@@ -25,12 +25,8 @@ const numbers = document.querySelectorAll(".number")
 
 const display = document.querySelector("#display")
 
-let displayValue
-
 function modifyDisplay() {
     display.textContent += this.textContent
-
-    displayValue = display.textContent
 }
 
 numbers.forEach(function(number) {
@@ -46,11 +42,16 @@ let a
 
 function showOperators() {
 
-    a = displayValue
+    if (display.textContent.includes("+") ||
+        display.textContent.includes("*") ||
+        display.textContent.includes("-") ||
+        display.textContent.includes("/")) getResult();
+
+    
+
+    a = display.textContent
     
     display.textContent += this.textContent
-
-    displayValue = display.textContent
 
     operatorChosen = this.textContent
     console.log(operatorChosen)
@@ -67,7 +68,7 @@ let b
 
 function getResult() {
 
-    b = displayValue.charAt(displayValue.length - 1)
+    b = display.textContent.charAt(display.textContent.length - 1)
     console.log(b)
     console.log(operatorChosen)
 
@@ -87,8 +88,6 @@ function clearCalculator() {
     b = ""
     operatorChosen = ""
     display.textContent = ""
-    displayValue = ""
-
 }
 
 clear.addEventListener("click", clearCalculator)
