@@ -15,6 +15,7 @@ function divide(a , b) {
 }
 
 function operate(operator, a, b) {
+    
     if (operator === "+") return add(a, b)
     if (operator === "-") return subtract(a, b)
     if (operator === "*") return multiply(a, b)
@@ -26,6 +27,7 @@ const numbers = document.querySelectorAll(".number")
 const display = document.querySelector("#display")
 
 function modifyDisplay() {
+
     display.textContent += this.textContent
 }
 
@@ -97,6 +99,7 @@ clear.addEventListener("click", clearCalculator)
 const floating = document.querySelector("#floating")
 
 function useFloating() {
+
     display.textContent += this.textContent
 
     floating.removeEventListener("click", useFloating)
@@ -107,6 +110,7 @@ floating.addEventListener("click", useFloating)
 const back = document.querySelector("#back")
 
 function removeLast() {
+
     display.textContent = display.textContent.replace(display.textContent.charAt(display.textContent.length - 1), "")
 }
 
@@ -116,10 +120,14 @@ const buttons = document.querySelectorAll("button")
 
 function showOperatorsKb(e) {
 
+    window.addEventListener("keydown", useFloatingKb)
+
     if (display.textContent.includes("+") ||
         display.textContent.includes("*") ||
         display.textContent.includes("-") ||
-        display.textContent.includes("/")) getResult();
+        display.textContent.includes("/")) {
+            getResult()
+    };
 
     if (operatorChosen === "/" && b === "0") return;
 
@@ -134,10 +142,6 @@ function showOperatorsKb(e) {
 
 window.addEventListener("keydown", function(e) {
 
-    if (floating.textContent === e.key) {
-        display.textContent += e.key
-    }
-
     if (e.key === "=" || e.key === "Enter") {
         getResult()
     }
@@ -146,24 +150,31 @@ window.addEventListener("keydown", function(e) {
 
     if (e.key === "Delete") {clearCalculator()}
 
-
-    
-
     operators.forEach(function(operator) {
+
         if (operator.textContent === e.key) {
-            showOperatorsKb(e)
-            return
+            showOperatorsKb(e);
+            return;
         }
     })
 
     numbers.forEach(function(number) {
+
         if (number.textContent === e.key) {
+
             display.textContent += e.key
-            return
+            return;
         }
-
-    
-
-    console.log(e.key)
     })
 })
+
+function useFloatingKb(b) {
+
+    if (floating.textContent === b.key) {
+
+        display.textContent += b.key
+        window.removeEventListener("keydown", useFloatingKb)
+    }
+}
+
+window.addEventListener("keydown", useFloatingKb)
