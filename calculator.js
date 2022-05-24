@@ -104,3 +104,10 @@ function useFloating() {
 
 floating.addEventListener("click", useFloating)
 
+const back = document.querySelector("#back")
+
+function removeLast() {
+    display.textContent = display.textContent.replace(display.textContent.charAt(display.textContent.length - 1), "")
+}
+
+back.addEventListener("click", removeLast)
