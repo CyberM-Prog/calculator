@@ -47,6 +47,8 @@ function showOperators() {
         display.textContent.includes("-") ||
         display.textContent.includes("/")) getResult();
 
+    if (operatorChosen === "/" && b === "0") return;
+
     
 
     a = display.textContent
@@ -69,10 +71,14 @@ function getResult() {
 
     b = display.textContent.charAt(display.textContent.length - 1)
 
+    if (operatorChosen === "/" && b === "0") display.textContent = "Error! You can't divide by 0."
+
+    else {
     if (operatorChosen === "+") display.textContent = Math.round((add(a, b) + Number.EPSILON) * 10000000) / 10000000
     if (operatorChosen === "-") display.textContent = Math.round((subtract(a, b) + Number.EPSILON) * 10000000) / 10000000
     if (operatorChosen === "*") display.textContent = Math.round((multiply(a, b) + Number.EPSILON) * 10000000) / 10000000
     if (operatorChosen === "/") display.textContent = Math.round((divide(a, b) + Number.EPSILON) * 10000000) / 10000000
+    }   
 }
 
 equal.addEventListener("click", getResult)
