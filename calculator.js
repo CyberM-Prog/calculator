@@ -49,7 +49,7 @@ function showOperators() {
 
     if (operatorChosen === "/" && b === "0") return;
 
-    
+    floating.addEventListener("click", useFloating)
 
     a = display.textContent
     
@@ -93,4 +93,14 @@ function clearCalculator() {
 }
 
 clear.addEventListener("click", clearCalculator)
+
+const floating = document.querySelector("#floating")
+
+function useFloating() {
+    display.textContent += this.textContent
+
+    floating.removeEventListener("click", useFloating)
+}
+
+floating.addEventListener("click", useFloating)
 
