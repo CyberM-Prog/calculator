@@ -111,3 +111,59 @@ function removeLast() {
 }
 
 back.addEventListener("click", removeLast)
+
+const buttons = document.querySelectorAll("button")
+
+function showOperatorsKb(e) {
+
+    if (display.textContent.includes("+") ||
+        display.textContent.includes("*") ||
+        display.textContent.includes("-") ||
+        display.textContent.includes("/")) getResult();
+
+    if (operatorChosen === "/" && b === "0") return;
+
+    floating.addEventListener("click", useFloating)
+
+    a = display.textContent
+    
+    display.textContent += e.key
+
+    operatorChosen = e.key
+}
+
+window.addEventListener("keydown", function(e) {
+
+    if (floating.textContent === e.key) {
+        display.textContent += e.key
+    }
+
+    if (e.key === "=" || e.key === "Enter") {
+        getResult()
+    }
+
+    if (e.key === "Backspace") {removeLast()}
+
+    if (e.key === "Delete") {clearCalculator()}
+
+
+    
+
+    operators.forEach(function(operator) {
+        if (operator.textContent === e.key) {
+            showOperatorsKb(e)
+            return
+        }
+    })
+
+    numbers.forEach(function(number) {
+        if (number.textContent === e.key) {
+            display.textContent += e.key
+            return
+        }
+
+    
+
+    console.log(e.key)
+    })
+})
