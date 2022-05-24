@@ -116,8 +116,6 @@ function removeLast() {
 
 back.addEventListener("click", removeLast)
 
-const buttons = document.querySelectorAll("button")
-
 function showOperatorsKb(e) {
 
     window.addEventListener("keydown", useFloatingKb)
