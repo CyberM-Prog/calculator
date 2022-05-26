@@ -46,7 +46,7 @@ function showOperators() {
 
     if (display.textContent.includes("+") ||
         display.textContent.includes("*") ||
-        display.textContent.includes("-") ||
+        display.textContent.substr(1).includes("-") ||
         display.textContent.includes("/")) getResult();
 
     if (operatorChosen === "/" && b === "0") return;
@@ -69,17 +69,54 @@ const equal = document.querySelector("#equal")
 
 let b
 
+let result
+
 function getResult() {
 
-    b = display.textContent.charAt(display.textContent.length - 1)
+    let displaySplit = display.textContent.split("")
 
-    if (operatorChosen === "/" && b === "0") display.textContent = "Error! You can't divide by 0."
+    let displayJoined = displaySplit.join(" ")
+
+    let position
+
+    if (operatorChosen === "+") position = displayJoined.search("\\+")
+    if (operatorChosen === "-") {
+
+        let displayJoinedMinus = displayJoined.substr(1)
+
+        console.log(displayJoinedMinus)
+
+        if (a.includes("-")) {
+            position = displayJoinedMinus.search("\\-")
+            displayJoined = displayJoinedMinus
+        }
+        else {position = displayJoined.search("\\-")
+        console.log(displayJoined)
+        console.log(position)}
+    }
+    if (operatorChosen === "*") position = displayJoined.search("\\*")
+    if (operatorChosen === "/") position = displayJoined.search("\\/")
+
+    let bSpaced = displayJoined.substr(position + 1)
+
+    console.log(bSpaced)
+
+    b = bSpaced.replaceAll(" ", "")
+
+    if (operatorChosen === "/" && b === "0") display.textContent = "Error"
 
     else {
-    if (operatorChosen === "+") display.textContent = Math.round((add(a, b) + Number.EPSILON) * 10000000) / 10000000
-    if (operatorChosen === "-") display.textContent = Math.round((subtract(a, b) + Number.EPSILON) * 10000000) / 10000000
-    if (operatorChosen === "*") display.textContent = Math.round((multiply(a, b) + Number.EPSILON) * 10000000) / 10000000
-    if (operatorChosen === "/") display.textContent = Math.round((divide(a, b) + Number.EPSILON) * 10000000) / 10000000
+    if (operatorChosen === "+") display.textContent = Math.round((add(a, b) + Number.EPSILON) * 10000) / 10000
+    if (operatorChosen === "-") {
+        display.textContent = Math.round((subtract(a, b) + Number.EPSILON) * 10000) / 10000
+
+    }
+    if (operatorChosen === "*") display.textContent = Math.round((multiply(a, b) + Number.EPSILON) * 10000) / 10000
+    if (operatorChosen === "/") display.textContent = Math.round((divide(a, b) + Number.EPSILON) * 10000) / 10000
+    result = display.textContent
+    let numberResult = Number(result)
+    if (result.length > 8) display.textContent = numberResult.toExponential(2)
+    if (numberResult.toExponential(2).length > 8) display.textContent = "Error"
     }   
 }
 
@@ -92,6 +129,8 @@ function clearCalculator() {
     b = ""
     operatorChosen = ""
     display.textContent = ""
+    floating.addEventListener("click", useFloating)
+
 }
 
 clear.addEventListener("click", clearCalculator)
@@ -176,3 +215,15 @@ function useFloatingKb(b) {
 }
 
 window.addEventListener("keydown", useFloatingKb)
+
+const buttons = document.querySelectorAll("button")
+
+buttons.forEach(function(button) {
+    
+    button.addEventListener("click", function() {
+        if (display.textContent.includes("Error") || display.textContent.includes("NaN")) {
+            clearCalculator()
+        }
+    })
+})
+
